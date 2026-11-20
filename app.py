@@ -8,6 +8,18 @@ import plotly.graph_objects as go
 import streamlit as st
 
 
+COLORS = {
+    "navy": "#143556",
+    "teal": "#2A8491",
+    "gold": "#C29B4C",
+    "red": "#D31F3B",
+    "slate": "#5F6973",
+    "light_blue": "#E8EFF4",
+    "grid": "#DCE2E7",
+    "canvas": "#F5F7F9",
+}
+
+
 st.set_page_config(
     page_title="CTICC Client Satisfaction",
     page_icon="CT",
@@ -133,6 +145,41 @@ filtered["Status"] = np.where(
     "Below Benchmark",
 )
 
+st.markdown(
+    f"""
+    <style>
+    [data-testid="stTabs"] [role="tablist"] {{
+        gap: 0.45rem;
+        border-bottom: 1px solid {COLORS["grid"]};
+        padding-bottom: 0.4rem;
+    }}
+    [data-testid="stTabs"] [data-testid="stTab"] {{
+        background: {COLORS["light_blue"]};
+        color: {COLORS["navy"]};
+        border: 1px solid {COLORS["grid"]};
+        border-radius: 8px 8px 0 0;
+        padding: 0.55rem 0.9rem;
+        transition: background-color 120ms ease, color 120ms ease;
+    }}
+    [data-testid="stTabs"] [data-testid="stTab"] p {{
+        color: inherit;
+        font-weight: 600;
+    }}
+    [data-testid="stTabs"] [data-testid="stTab"]:hover {{
+        background: #D3EBEE;
+        color: {COLORS["navy"]};
+    }}
+    [data-testid="stTabs"] [data-testid="stTab"][aria-selected="true"] {{
+        background: {COLORS["navy"]};
+        color: #FFFFFF;
+        border-color: {COLORS["navy"]};
+        box-shadow: inset 0 -3px 0 {COLORS["gold"]};
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 tab_dashboard, tab_events, tab_reports, tab_guide = st.tabs(
     ["Executive Dashboard", "Event Search", "Reports & Evidence", "User Guide"]
 )
@@ -179,12 +226,12 @@ with tab_dashboard:
             y="Overall Satisfaction",
             color="Year",
             markers=True,
-            color_discrete_map={2025: "#667085", 2026: "#B31B34"},
+            color_discrete_map={2025: COLORS["slate"], 2026: COLORS["red"]},
         )
         fig.add_hline(
             y=benchmark,
             line_dash="dash",
-            line_color="#D59A22",
+            line_color=COLORS["gold"],
             annotation_text=f"Benchmark {benchmark}",
         )
         fig.update_layout(
@@ -192,6 +239,11 @@ with tab_dashboard:
             yaxis_range=[65, 100],
             legend_title="",
             hovermode="x unified",
+            paper_bgcolor=COLORS["canvas"],
+            plot_bgcolor=COLORS["canvas"],
+            font_color=COLORS["navy"],
+            xaxis_gridcolor=COLORS["grid"],
+            yaxis_gridcolor=COLORS["grid"],
             margin=dict(l=20, r=20, t=60, b=20),
         )
         with st.container(border=True):
@@ -212,15 +264,22 @@ with tab_dashboard:
                 x=area_scores.values,
                 y=area_scores.index,
                 orientation="h",
-                marker_color=["#B31B34" if x < benchmark else "#246B70" for x in area_scores],
+                marker_color=[
+                    COLORS["red"] if x < benchmark else COLORS["teal"]
+                    for x in area_scores
+                ],
                 text=[f"{x:.1f}" for x in area_scores.values],
                 textposition="outside",
             )
         )
-        fig2.add_vline(x=benchmark, line_dash="dash", line_color="#D59A22")
+        fig2.add_vline(x=benchmark, line_dash="dash", line_color=COLORS["gold"])
         fig2.update_layout(
             title="Priority Service Areas",
             xaxis_range=[65, 100],
+            paper_bgcolor=COLORS["canvas"],
+            plot_bgcolor=COLORS["canvas"],
+            font_color=COLORS["navy"],
+            xaxis_gridcolor=COLORS["grid"],
             margin=dict(l=20, r=20, t=60, b=20),
         )
         with st.container(border=True):
@@ -249,13 +308,23 @@ with tab_dashboard:
             y="Satisfaction",
             color="Quarter",
             text=comparison["Satisfaction"].round(1),
-            color_discrete_sequence=["#246B70", "#4E7CC7", "#D59A22", "#B31B34"],
+            color_discrete_sequence=[
+                COLORS["navy"],
+                COLORS["teal"],
+                COLORS["gold"],
+                COLORS["red"],
+            ],
         )
-        fig3.add_hline(y=benchmark, line_dash="dash", line_color="#667085")
+        fig3.add_hline(y=benchmark, line_dash="dash", line_color=COLORS["slate"])
         fig3.update_layout(
             title="Quarterly Comparison",
             yaxis_range=[65, 100],
             showlegend=False,
+            paper_bgcolor=COLORS["canvas"],
+            plot_bgcolor=COLORS["canvas"],
+            font_color=COLORS["navy"],
+            xaxis_gridcolor=COLORS["grid"],
+            yaxis_gridcolor=COLORS["grid"],
             margin=dict(l=20, r=20, t=60, b=20),
         )
         with st.container(border=True):
