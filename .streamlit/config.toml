@@ -1,20 +1,22 @@
 [theme]
 base = "light"
-primaryColor = "#B31B34"
-backgroundColor = "#F7F8FA"
+primaryColor = "#D31F3B"
+backgroundColor = "#F5F7F9"
 secondaryBackgroundColor = "#FFFFFF"
-textColor = "#1F2937"
-borderColor = "#DDE2E8"
+textColor = "#143556"
+borderColor = "#DCE2E7"
 showWidgetBorder = true
-chartCategoricalColors = ["#B31B34", "#246B70", "#D59A22", "#667085", "#7A5B8E", "#4E7CC7", "#7FB285"]
-dataframeHeaderBackgroundColor = "#1F2937"
+chartCategoricalColors = ["#143556", "#2A8491", "#C29B4C", "#D31F3B", "#4BACC6", "#5F6973", "#9BBB59"]
+dataframeHeaderBackgroundColor = "#143556"
 dataframeHeaderTextColor = "#FFFFFF"
-dataframeBorderColor = "#DDE2E8"
+dataframeBorderColor = "#DCE2E7"
 paddingTop = "1rem"
 paddingBottom = "1rem"
 
 [theme.sidebar]
-backgroundColor = "#FFFFFF"
-secondaryBackgroundColor = "#F7F8FA"
-textColor = "#1F2937"
-borderColor = "#DDE2E8"
+backgroundColor = "#143556"
+secondaryBackgroundColor = "#1F4C77"
+textColor = "#FFFFFF"
+borderColor = "#2A8491"
+primaryColor = "#D31F3B"
+linkColor = "#D3EBEE"
